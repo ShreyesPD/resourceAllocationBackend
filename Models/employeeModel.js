@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             unique: true,
         },
-        role: {
+        emp_type: {
             type: DataTypes.ENUM,
             values: ["admin", "super_admin", "employee"],
             allowNull: false

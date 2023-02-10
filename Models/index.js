@@ -20,6 +20,11 @@ db.sequelize = sequelize
 //connecting to model
 db.users = require('./userModel')(sequelize, DataTypes)
 db.employees = require('./employeeModel')(sequelize, DataTypes)
+db.project = require('./projectModel')(sequelize, DataTypes)
+db.worksOn = require('./worksOn')(sequelize, DataTypes)
+// db.leave = require('./laveModel')(sequelize, DataTypes)
+// db.activity = require('./activityLog')(sequelize, DataTypes)
+
 
 //exporting the module
 module.exports = db
