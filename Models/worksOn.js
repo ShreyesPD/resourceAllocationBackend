@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         res_status: {
             type: DataTypes.ENUM,
-            values: ["probable", "confirmed", "not assigned"],
+            values: ["probable", "confirmed"],
             allowNull: false
         },
         week_no:{

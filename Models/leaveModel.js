@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         d1: {
             type: DataTypes.ENUM,
-            values: ["full day", "half day"],
+            values: ["full day", "half day","noLeave"],
             allowNull: false
         },
         d2: {

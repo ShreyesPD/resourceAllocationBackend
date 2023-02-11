@@ -144,26 +144,26 @@ const getUserbyId = async (req, res) => {
 
         //   //if user email is found, compare password with bcrypt
           if (user) {
-        //     const isSame = await bcrypt.compare(password, user.password);
+            todaydate = new Date(); 
+            year=todaydate.getFullYear();
+            var oneJan =  new Date(todaydate.getFullYear(), 0, 1);   
+            // calculating number of days in given year before a given date   
+            var numberOfDays =  Math.floor((todaydate - oneJan) / (24 * 60 * 60 * 1000));  
+            // adding 1 since to current date and returns value starting from 0   
+            var result = Math.ceil(( todaydate.getDay() + 1 + numberOfDays) / 7);
+            //var weekNum='201901';
+            const { QueryTypes } = require('sequelize');
+            //const pro1 = await db.sequelize.query('SELECT * FROM "Projects" ', { type: QueryTypes.SELECT });
+            for(i=0;i<4;i++)
+            {   weekNum=year.toString()+result.toString();
+               // console.log(weekNum)
+                const user_data = await db.sequelize.query( `SELECT "proj_id","res_status", sum("hrs_per_week") FROM "worksOns" WHERE "enp_id"=${user.enp_id} AND "week_no"='${weekNum}' GROUP BY "enp_id", "proj_id" , "res_status" ;`, { type: QueryTypes.SELECT });
+                result++
+             }
 
-        //     //if password is the same
-        //      //generate token with the user's id and the secretKey in the env file
 
-        //     if (isSame) {
-        //       let token = jwt.sign({ id: user.id }, process.env.secretKey, {
-        //         expiresIn: 1 * 24 * 60 * 60 * 1000,
-        //       });
-
-        //       //if password matches wit the one in the database
-        //       //go ahead and generate a cookie for the user
-        //       res.cookie("jwt", token, { maxAge: 1 * 24 * 60 * 60, httpOnly: true });
-        //       console.log("user", JSON.stringify(user, null, 2));
-        //       console.log(token);
-        //       //send user data
-              return res.status(201).send(user);
-            // } else {
-            //   return res.status(401).send("Authentication failed");
-            // }
+              return res.status(201).send(user_data);
+          
           } else {
             return res.status(401).send("user not found");
           }
